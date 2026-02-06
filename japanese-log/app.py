@@ -1,26 +1,9 @@
+import random
+
 import streamlit as st
-import json
-from pathlib import Path
 from datetime import date
 
-DATA_DIR = Path("data")
-DATA_DIR.mkdir(exist_ok=True)
-
-
-# ---------- Helpers ----------
-def save_entry(entry):
-    file_path = DATA_DIR / f"{entry['date']}.json"
-    with open(file_path, "w", encoding="utf-8") as f:
-        json.dump(entry, f, ensure_ascii=False, indent=2)
-
-
-def load_all_entries():
-    entries = []
-    for file in DATA_DIR.glob("*.json"):
-        with open(file, "r", encoding="utf-8") as f:
-            entries.append(json.load(f))
-    return sorted(entries, key=lambda x: x["date"], reverse=True)
-
+from helpers import load_all_entries, save_entry, load_all_words
 
 # ---------- UI ----------
 st.set_page_config(
@@ -31,7 +14,7 @@ st.set_page_config(
 
 st.title("📘 Japanese Learning Log")
 
-tab_entry, tab_history = st.tabs(["➕ New Entry", "📜 History"])
+tab_entry, tab_history, tab_practice = st.tabs(["➕ New Entry", "📜 History", "🧠 Practice"])
 
 
 # ---------- New Entry Tab ----------
@@ -114,3 +97,41 @@ with tab_history:
                 if entry["summary"]:
                     st.markdown("**Summary**")
                     st.write(entry["summary"])
+
+# ---------- Practice Tab ----------
+def next_word(all_words):
+    """Pick a random word"""
+    st.session_state.current_word = random.choice(all_words)
+    st.session_state.answer_checked = False
+    st.session_state.practice_input = ""
+
+
+with tab_practice:
+    st.subheader("🧠 Word Practice")
+
+    all_words = load_all_words()
+
+    if not all_words:
+        st.info("No words available yet. Add some entries first 🙂")
+    else:
+        if "current_word" not in st.session_state:
+            st.session_state.current_word = random.choice(all_words)
+            st.session_state.answer_checked = False
+            st.session_state.practice_input = ""
+
+        word = st.session_state.current_word
+
+        st.markdown(f"### 🈶 {word['word']}")
+
+        user_reading = st.text_input("Enter the reading", key="practice_input")
+
+        if st.button("Check"):
+            st.session_state.answer_checked = True
+            if user_reading.strip().lower() == word["reading"].lower():
+                st.success("✅ Correct!")
+                st.success(f"Meaning: {word["meaning"]}")
+            else:
+                st.error(f"❌ Wrong. Correct reading: **{word['reading']}**")
+
+        if st.session_state.answer_checked:
+            st.button("Next word", on_click=next_word, args=(all_words,))
