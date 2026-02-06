@@ -1,0 +1,6 @@
+pyproject.toml
+japanese_learning_log.egg-info/PKG-INFO
+japanese_learning_log.egg-info/SOURCES.txt
+japanese_learning_log.egg-info/dependency_links.txt
+japanese_learning_log.egg-info/requires.txt
+japanese_learning_log.egg-info/top_level.txt

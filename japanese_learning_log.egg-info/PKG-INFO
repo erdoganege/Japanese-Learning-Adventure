@@ -1,0 +1,8 @@
+Metadata-Version: 2.4
+Name: japanese-learning-log
+Version: 0.0.0
+Summary: My Japanese Learning Journey
+Author-email: Ege Erdogan <ege.erdogan@kobil.com>
+Requires-Python: ~=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: streamlit==1.53.1

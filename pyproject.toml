@@ -1,0 +1,49 @@
+[project]
+name = "japanese-learning-log"
+dynamic = ["version"]
+description = "My Japanese Learning Journey"
+readme = "README.md"
+requires-python = "~=3.12"
+authors = [
+    { name = "Ege Erdogan", email = "ege.erdogan@kobil.com" }
+]
+
+dependencies = [
+    "streamlit==1.53.1",
+]
+
+[dependency-groups]
+dev = [
+    "mypy",
+    "ruff",
+]
+
+[tool.mypy]
+ignore_missing_imports = true
+namespace_packages = true
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+# default rules are F and a subset (excludes stylistic rules) of E = ["F", "E4", "E7", "E9"]
+select = [
+    # Pyflakes
+    "F",
+    # pycodestyle
+    "E",
+    # subset of pydocstyle (Enforces documentation for classes and functions)
+    "D1",
+]
+ignore = [
+    # our imports are considered as "re-exports" instead of unused imports
+    "F401",
+    # no need to put documentation for __init__ calls as their purpose (i.e. initialization) clear enough
+    "D107",
+    # no need to put documentation for magic methods as their purpose (i.e. __eq__) clear enough
+    "D105",
+]
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"
