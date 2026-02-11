@@ -1,0 +1,29 @@
+{
+  "date": "2026-02-11",
+  "words": [
+    {
+      "word": "あいさつ",
+      "reading": "aisatsu",
+      "meaning": "selamlaşma"
+    },
+    {
+      "word": "朝",
+      "reading": "あさ",
+      "meaning": "sabah"
+    },
+    {
+      "word": "昼",
+      "reading": "ひる",
+      "meaning": "öğlen"
+    },
+    {
+      "word": "夜",
+      "reading": "よる",
+      "meaning": "gece"
+    }
+  ],
+  "grammar": [
+    "お先に失礼します (osaki ni shitsureeshimasu) -> ofisten çıkarken görüşürüz gibi"
+  ],
+  "summary": "Irodori kitabına başladım, Chapter 1 bitmek üzere 2 sayfa kaldı."
+}
